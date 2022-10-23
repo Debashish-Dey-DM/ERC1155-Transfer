@@ -5,6 +5,8 @@ import {  CARBON_CREDIT_ADDRESS } from "../constants/address";
 import CarbonCreditJson from "../artifacts/contracts/CarbonCredit.sol/CarbonCredit.json";
 import { Interface } from 'ethers/lib/utils';
 import { Contract } from 'ethers';
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage, uploadFile } from "../lib/firebase";
 import { CarbonCredit,CarbonCredit__factory } from '../typechain';
 import { useMemo, useState } from 'react';
 const CreateCredit: NextPage = () => {
@@ -30,6 +32,11 @@ const CreateCredit: NextPage = () => {
     )
   const handleSubmit = async (e:any) => {
     e.preventDefault();
+    const imageFile = e.target[3]?.files[0];
+    const imageUrl = await uploadFile(imageFile, "CategoryLogo");
+    
+    
+    
     mintCredit(nft.amount,"metadataUrl");
     const name = nft.name.toString();
     const description = nft.description.toString();
@@ -42,7 +49,8 @@ const CreateCredit: NextPage = () => {
         name,
          description,
          amount,
-         newAddress
+        newAddress,
+         imageUrl
       }
     ).then((r) => {
       console.log(r);
@@ -70,6 +78,10 @@ const CreateCredit: NextPage = () => {
          </div>
         <div className="form-outline mb-4">
           <input className="form-control"type="text" name="amount" placeholder='Amount' onChange={handleChange} />
+         
+        </div>
+        <div className="form-outline mb-4">
+          <input type="file" className="form-control" />
          
          </div>
         <div className="col" style={{textAlign:'center'}}>

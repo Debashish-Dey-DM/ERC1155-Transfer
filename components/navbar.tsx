@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { useEthers } from '@usedapp/core'
 import { ADMIN_ADDRESS } from '../constants/address'
+import Link from 'next/link'
 const Navbar: NextPage = () => {
   const{account,activateBrowserWallet,deactivate} = useEthers()
   return (
@@ -13,20 +14,30 @@ const Navbar: NextPage = () => {
   </button>
   <div className="collapse navbar-collapse" id="navbarNav" style={{flexFlow:'column'}}>
     <ul className="navbar-nav">
+      
       <li className="nav-item active">
-        <a className="nav-link" href="MarketPlace">Market Place <span className="sr-only"></span></a>
+              {/* <a className="nav-link" href="MarketPlace">Market Place <span className="sr-only"></span></a> */}
+              <Link href={'/MarketPlace'}>
+                <a className="nav-link">Market Place <span className="sr-only"></span></a>
+              </Link>
       </li>
       <li className="nav-item">
         <a className="nav-link" href="Admin">Create Organisations</a>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="CreateCredit">Mint Carbon Credit</a>
+              <Link href={'/CreateCredit'}>
+                  <a className="nav-link" >Mint Carbon Credit</a>
+              </Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="AllRequest">Request</a>
+              <Link href={'/AllRequest'}>
+                <a className="nav-link" >Request</a>
+              </Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="OwnedCredit">Owned Credit</a>
+              <Link href={'/OwnedCredit'}>
+                <a className="nav-link" >Owned Credit</a>
+              </Link>
       </li>
       
             {account ? <button onClick={()=>deactivate()} className='btn btn-danger'>Disconnect Wallet</button>:<button onClick={()=>activateBrowserWallet()} className='btn btn-success'>Connect Wallet</button>}

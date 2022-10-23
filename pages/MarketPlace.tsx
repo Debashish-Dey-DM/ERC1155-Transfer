@@ -24,7 +24,7 @@ const MarketPlace: NextPage = () => {
                       <>
                 <div className="col-sm" style={{paddingTop:'1rem'}}>
                 <div className="card" style={ {width:"12rem"} } key={i}>
-                <img className="card-img-top" src="..." alt="Card image cap"/>
+                <img className="card-img-top" src={c?.image} alt="Card image cap"/>
                 <div className="card-body">
                     <h5 className="card-title">{c.name}</h5>
                     <p className="card-text">{c.amount}</p>

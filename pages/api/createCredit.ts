@@ -9,14 +9,15 @@ handler.post(
         const { name,
             description,
             amount,
-            newAddress
+            newAddress,
+            imageUrl
         } = req.body;
         const credit = await prisma.credit.create({
             data: {
                 name: name,
                 description: description,
                 amount: Number(amount),
-                image: "test",
+                image: imageUrl,
             }
         })
         const getUser = await prisma.user.findFirst({
