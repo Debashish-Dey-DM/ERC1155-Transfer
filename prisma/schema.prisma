@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id     Int    @id @default(autoincrement())
+  name        String 
+  address     String
+  description String
+
+  type      String   @default("organization")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Credit {
+  credit_id   Int      @id @default(autoincrement())
+  name        String
+  description String
+  token_id    Int?
+  amount      Int
+  image       String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+}
+
+model UserToCredit {
+  id        Int      @id @default(autoincrement())
+  user_id   Int
+  credit_id Int
+  amount    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model Request {
+  request_id Int      @id @default(autoincrement())
+  From       String
+  To         String
+  Credit_Id  Int
+  amount     Int
+  status     String?  @default("pending")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+}
+model AddressToCredit{
+  id        Int      @id @default(autoincrement())
+  address   String
+  credit_id Int
+  amount    Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
